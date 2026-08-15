@@ -1,61 +1,51 @@
-# Dharaneesh R — Portfolio
+# Dharaneesh — React Frontend Developer & UI/UX Designer
 
-A single-page freelance portfolio built with React + Vite, Framer Motion, and React Icons.
+Hi, I’m **Dharaneesh R**.
 
-## Getting started
+I build **modern React websites and web applications** that are fast, responsive, and easy to use. This portfolio is a collection of the kind of work I enjoy building — clean user interfaces, smooth interactions, and layouts that work well on both desktop and mobile.
 
-```bash
-npm install
-npm run dev
-```
+If you’re looking for someone who can turn a design, an idea, or a rough concept into a polished website, I’d love to help.
 
-Then open the printed local URL (usually `http://localhost:5173`).
+## Live Portfolio
 
-## Build for production
+**https://dharaneesh-freelance.web.app**
 
-```bash
-npm run build
-npm run preview
-```
+## What I can help you build
 
-The production build is output to `dist/`.
+* Business websites
+* Landing pages
+* Portfolio websites
+* React frontend applications
+* UI/UX implementation from Figma
+* Responsive website redesigns
+* Dashboard interfaces
+* Website performance and UI improvements
 
-## Project structure
+## Tech I work with
 
-```
-src/
-  components/   Section components (Navbar, Hero, About, Skills, Services, Projects, WhyChooseMe, Contact, Footer)
-  data/         Content for skills, services, projects, and "why choose me"
-  index.css     Design tokens + global styles
-  App.jsx       Assembles all sections
-  main.jsx      React entry point
-```
+* React
+* JavaScript (ES6+)
+* HTML5
+* CSS3
+* Tailwind CSS
+* Framer Motion
+* Firebase
+* EmailJS
+* Git & GitHub
 
-## Customizing
+## A few things I care about
 
-- **Colors & fonts**: edit the CSS variables at the top of `src/index.css`.
-- **Content**: edit the arrays in `src/data/*.js` — components render straight from these.
-- **Projects**: replace the placeholder thumbnails in `Projects.jsx` with real screenshots by swapping `<ProjectGlyph />` for an `<img loading="lazy" src="..." alt="..." />`.
+I try to keep my code clean and maintainable, and I pay a lot of attention to the small details that improve user experience — spacing, responsiveness, animations, and overall usability. I enjoy working closely with clients and keeping communication simple and transparent throughout a project.
 
-## Contact form (already wired up)
 
-The form in `src/components/Contact.jsx` submits to [Formspree](https://formspree.io) — no backend needed.
+## Looking for a frontend developer?
 
-1. Go to formspree.io and create a free account.
-2. Create a new form; it gives you an endpoint like `https://formspree.io/f/abcdwxyz`.
-3. Open `src/components/Contact.jsx` and replace `FORM_ENDPOINT` near the top with that URL.
-4. Submit the form once yourself (locally or on your live site) and confirm the activation email from Formspree — first submissions need this to start delivering to your inbox.
+If you have a project in mind — whether it’s a new website, a React frontend, or a UI redesign — feel free to reach out. I’m available for **freelance projects, collaborations, and frontend development work**.
 
-Prefer a different service (EmailJS, your own API route, etc.)? Just swap the `fetch` call inside `handleSubmit` — the rest of the component (state, validation, success/error UI) stays the same.
+**Email:** [dharaneeshr.official@gmail.com](mailto:dharaneeshr.official@gmail.com)
 
-## Deploying (Vercel)
+**LinkedIn:** https://www.linkedin.com/in/dharaneeshr-10d11d
 
-The fastest path to a live URL:
+**GitHub:** https://github.com/Dharaneesh8811
 
-1. Push this folder to a GitHub repo.
-2. Go to [vercel.com](https://vercel.com), sign in with GitHub, and click **Add New → Project**.
-3. Import the repo. Vercel auto-detects Vite — leave the defaults (Build Command: `npm run build`, Output Directory: `dist`).
-4. Click **Deploy**. You'll get a live `*.vercel.app` URL in about a minute, and every future push to `main` redeploys automatically.
-5. Optional: add a custom domain under Project → Settings → Domains.
-
-No GitHub account? You can also run `npx vercel` from inside the project folder and follow the prompts to deploy straight from your machine.
+Thanks for visiting my repository. I appreciate your time, and I’d be happy to discuss your project.
