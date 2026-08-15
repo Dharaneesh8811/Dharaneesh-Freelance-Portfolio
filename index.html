@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dharaneesh R — React Frontend Developer & UI/UX Designer</title>
+    <meta
+      name="description"
+      content="Dharaneesh R is a freelance React frontend developer and UI/UX designer building fast, responsive, and beautifully crafted web experiences for startups and businesses."
+    />
+    <meta name="keywords" content="React developer, frontend developer, UI/UX designer, freelance web developer, responsive websites" />
+    <meta name="author" content="Dharaneesh R" />
+    <meta name="theme-color" content="#0B1120" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dharaneesh R — React Frontend Developer & UI/UX Designer" />
+    <meta property="og:description" content="Freelance React developer crafting responsive, user-friendly interfaces with a strong eye for UI/UX." />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dharaneesh R — React Frontend Developer & UI/UX Designer" />
+    <meta name="twitter:description" content="Freelance React developer crafting responsive, user-friendly interfaces with a strong eye for UI/UX." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('portfolio-theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
