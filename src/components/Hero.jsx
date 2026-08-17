@@ -56,7 +56,7 @@ export default function Hero() {
     >
       <div className="hero-bg" aria-hidden="true" />
       <div className="container hero-grid">
-        <div>
+        <div className="hero-content">
           <motion.span
             className="hero-badge"
             initial={{ opacity: 0, y: -10 }}
@@ -67,6 +67,7 @@ export default function Hero() {
           </motion.span>
 
           <motion.h1
+            className="hero-title"
             variants={container}
             initial="hidden"
             animate="visible"
@@ -85,6 +86,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p
+            className="hero-description"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.55 }}
@@ -95,6 +97,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
+            className="hero-actions"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.68 }}
@@ -109,39 +112,40 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
+            className="hero-stats"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
-            style={{ display: 'flex', gap: 32, marginTop: 36, flexWrap: 'wrap',}}
           >
             {[
               ['1+', 'Years building UI'],
               ['6+', 'Projects shipped'],
               ['100%', 'Responsive builds'],
             ].map(([stat, label]) => (
-              <div key={label}>
-                <div className="gradient-text"
-                style={{  
-                  fontFamily: 'var(--font-display)', 
-                  fontSize: '1.5rem', 
-                  fontWeight: 700,
-                  }}>
+              <div key={label} className="hero-stat">
+
+                <div className="gradient-text hero-stat-value">
                   {stat}
                 </div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{label}</div>
+
+                <div className="hero-stat-label">
+                  {label}
+                </div>
+
               </div>
             ))}
           </motion.div>
         </div>
 
         <motion.div
+          className="hero-visual hero-orbit"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.25 }}
           className="hero-visual"
           style={{ rotateX, rotateY, transformPerspective: 900 }}
         >
-          <SkillOrbit coreLabel="Dharaneesh" size={400} radiusRatio={0.4} iconSize={20} showTooltips />
+          <SkillOrbit coreLabel="Dharaneesh" size={360} radiusRatio={0.4} iconSize={20} showTooltips />
         </motion.div>
       </div>
       <motion.div
@@ -204,29 +208,185 @@ export default function Hero() {
           min-height: 62vh;
         }
         .hero-visual { will-change: transform; }
-       @media (max-width: 960px) {
+@media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
     justify-items: center;
     align-items: center;
     text-align: center;
+
     padding-top: 16px;
     padding-bottom: 48px;
+
     min-height: auto;
   }
 
   .hero-visual {
     order: -1;
+
     width: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     margin: 0 auto 24px;
+
     transform: none !important;
   }
 
   .hero-visual > * {
     margin: 0 auto;
+  }
+
+  .hero-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+  @media (max-width: 640px) {
+
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 45px;
+
+    gap: 0;
+  }
+
+  .hero-orbit {
+    order: -1;
+
+    width: 100%;
+    height: 190px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    margin: 0 auto 10px;
+    padding: 0;
+
+    transform: none !important;
+  }
+
+  .hero-orbit > * {
+    margin: 0 auto;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 420px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+    z-index: 5;
+  }
+
+
+  .hero-badge {
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    width: 100%;
+
+    font-size: clamp(2.25rem, 9vw, 3rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.04em;
+
+    margin: 16px auto 20px !important;
+  }
+
+  .hero-description {
+    width: 100%;
+
+    font-size: 1rem !important;
+    line-height: 1.7;
+
+    margin: 0 auto 24px !important;
+
+    max-width: 390px;
+  }
+
+  .hero-actions {
+  width: 100%;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 10px !important;
+  flex-wrap: nowrap !important;
+}
+
+.hero-actions .btn {
+  padding: 13px 16px;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+  .hero-stats {
+    display: grid !important;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    width: 100%;
+    max-width: 420px;
+
+    margin: 38px auto 0 !important;
+
+    gap: 10px;
+    align-items: start;
+  }
+
+  .hero-stat {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    min-width: 0;
+    text-align: center;
+  }
+
+  .hero-stat-value {
+    order: 1;
+
+    font-family: var(--font-display);
+    font-size: 1.5rem !important;
+    font-weight: 700;
+
+    line-height: 1.1;
+
+    margin-bottom: 6px;
+  }
+
+  .hero-stat-label {
+    order: 2;
+
+    display: block;
+
+    width: 100%;
+    max-width: 100px;
+
+    color: var(--text-muted);
+
+    font-size: 0.75rem;
+    line-height: 1.35;
+
+    text-align: center;
   }
 }
       `}</style>

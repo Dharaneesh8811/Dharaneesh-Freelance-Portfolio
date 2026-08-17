@@ -37,10 +37,6 @@ export default function Services() {
                 <span className="service-icon">
                   <service.icon size={22} />
                 </span>
-
-                <span className="service-arrow">
-                  <FiArrowUpRight />
-                </span>
               </div>
 
               <h3 className="service-title">{service.title}</h3>
@@ -222,35 +218,8 @@ export default function Services() {
             transform: rotate(-360deg) scale(1.12);
           }
 
-          .service-arrow {
-            width: 36px;
-            height: 36px;
 
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: rgba(255, 255, 255, 0.10);
-
-            border: 1px solid rgba(255, 255, 255, 0.30);
-
-            color: var(--accent);
-
-            font-size: 1rem;
-
-            opacity: 0;
-
-            transform: translateX(-8px);
-
-            transition:
-              opacity 0.3s ease,
-              transform 0.3s ease,
-              background 0.3s ease;
-          }
-
-          .service-card:hover .service-arrow {
+          .service-card:hover{
             opacity: 1;
             transform: translateX(0);
 
@@ -306,8 +275,8 @@ export default function Services() {
             border-color: rgba(255, 255, 255, 0.20);
           }
 
-          .dark .service-arrow,
-          [data-theme='dark'] .service-arrow {
+          .dark,
+          [data-theme='dark']{
             background: rgba(255, 255, 255, 0.05);
 
             border-color: rgba(255, 255, 255, 0.16);

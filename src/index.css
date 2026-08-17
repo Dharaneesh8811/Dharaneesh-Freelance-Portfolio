@@ -74,6 +74,7 @@ body {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -268,6 +269,7 @@ section {
   left: 0;
   right: 0;
   height: 3px;
+  pointer-events: none;
   transform-origin: 0% 50%;
   background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
   z-index: 200;

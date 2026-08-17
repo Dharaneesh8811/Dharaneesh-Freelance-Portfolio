@@ -16,6 +16,7 @@ export default function App() {
       <AmbientBackground />
       <ScrollProgress />
       <Navbar />
+
       <main>
         <Hero />
         <About />
@@ -25,6 +26,7 @@ export default function App() {
         <WhyChooseMe />
         <Contact />
       </main>
+      
       <Footer />
     </>
   )

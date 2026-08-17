@@ -90,32 +90,42 @@ export default function Footer() {
         }
 
         @media (max-width: 640px) {
-          .footer-row {
-            justify-content: center;
-            text-align: center;
-            gap: 12px;
-          }
+  .footer {
+    padding: 18px 0;
+  }
 
-          .footer-left {
-            width: 100%;
-            justify-content: center;
-            font-size: 0.82rem;
-          }
+  .footer-content {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
 
-          .footer-center {
-            width: auto;
-          }
+  .footer-text {
+    font-size: 0.8rem;
+  }
 
-          .footer-socials {
-            width: auto;
-            justify-content: center;
-          }
+  .footer-count {
+    display: flex;
+    align-items: center;
+  }
 
-          .footer-socials a {
-            width: 34px;
-            height: 34px;
-          }
-        }
+  .footer-socials {
+    gap: 8px;
+  }
+
+  .footer-socials a {
+    width: 38px;
+    height: 38px;
+  }
+
+  .footer-socials a svg {
+    width: 17px;
+    height: 17px;
+  }
+}
       `}</style>
     </footer>
   );

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import SectionHeading from "./SectionHeading.jsx";
 import { whyChooseMe } from "../data/whyChooseMe.js";
@@ -42,16 +42,25 @@ function TimelineItem({ item, index }) {
 
 export default function WhyChooseMe() {
   const timelineRef = useRef(null);
+  const sectionRef = useRef(null)
 
   const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start 20%", "end 80%"],
-  });
+    target: sectionRef,
+    offset: ['start 70%', 'end 30%'],
+  })
+
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  })
 
   const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="why-choose-me" className="why-section">
+    <section id="why-choose-me" ref={sectionRef}
+      className="why-section"
+      >
       <div className="container">
         <SectionHeading
           eyebrow="Why Choose Me"
