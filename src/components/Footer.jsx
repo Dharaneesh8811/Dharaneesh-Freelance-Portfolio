@@ -16,10 +16,10 @@ export default function Footer() {
         </div>
 
         <div className="footer-socials">
-          <a href="https://github.com/Dharaneesh8811" target="_blank" rel="noreferrer">
+          <a href="https://github.com/Dharaneesh8811" rel="noreferrer">
             <FiGithub size={18} />
           </a>
-          <a href="https://linkedin.com/in/dharaneeshr-10d11d" target="_blank" rel="noreferrer">
+          <a href="https://linkedin.com/in/dharaneeshr-10d11d" rel="noreferrer">
             <FiLinkedin size={18} />
           </a>
           <a href="mailto:dharaneeshr.official@gmail.com">

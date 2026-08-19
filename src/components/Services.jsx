@@ -18,7 +18,11 @@ export default function Services() {
       <div className="container">
         <SectionHeading
           eyebrow="Services"
-          title="What I can build for you"
+          title={
+            <>
+              What I can <span className='gradient-text'>build for you</span>
+            </>
+          }
           description="From a single landing page to a full product interface — here's where I can help."
         />
 

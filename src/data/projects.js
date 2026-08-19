@@ -6,11 +6,11 @@ export const projects = [
       'A full-featured storefront with product filtering, cart management, and a checkout flow built for speed on mobile.',
     tags: ['React', 'RESTful APIs', 'React Router', 'localStorage'],
     liveUrl: 'https://react-ecommerce-site-pink.vercel.app/',
-    githubUrl: 'http://github.com/Dharaneesh8811/React-EcommerceSite',
+    githubUrl: 'https://github.com/Dharaneesh8811/React-EcommerceSite',
     accent: '#6366F1',
   },
   {
-    image: '../images/projects/movies.png',
+    image: '/images/projects/movies.png',
     title: 'Movie App',
     description:
       'A movie discovery app pulling live data from a public API, with search, filtering, and detailed info pages.',
@@ -45,8 +45,8 @@ export const projects = [
     description:
       'A stylish e-commerce site for browsing and purchasing trendy hoodies.',
     tags: ['UI/UX', 'Wireframing', 'prototyping', 'Responsive Design'],
-    liveUrl: 'https://react-hoodies-site.vercel.app/',
-    githubUrl: 'https://github.com/Dharaneesh8811/React-Hoodies-Site',
+    liveUrl: '#',
+    githubUrl: '#',
     accent: '#F59E0B',
   },
 ]

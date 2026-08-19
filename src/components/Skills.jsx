@@ -18,7 +18,11 @@ export default function Skills() {
       <div className="container">
         <SectionHeading
           eyebrow="Skills"
-          title="Tools I use to bring ideas to life"
+          title={
+            <>
+              Tools I use to <span className='gradient-text'>bring ideas to life</span>
+            </>
+          }
           description="A focused stack for building and designing modern, responsive web interfaces."
         />
 

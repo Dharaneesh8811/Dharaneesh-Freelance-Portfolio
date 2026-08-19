@@ -64,7 +64,10 @@ export default function WhyChooseMe() {
       <div className="container">
         <SectionHeading
           eyebrow="Why Choose Me"
-          title="What working with me actually looks like"
+          title={
+          <>
+          What working with me <span className='gradient-text'>actually looks like</span>
+          </>}
           description="Five things I hold myself to on every project, from the first call to handover."
         />
 

@@ -105,6 +105,11 @@ export default function SkillOrbit({
         .orbit {
           position: absolute;
           inset: 0;
+
+          animation: orbitSpin 60s linear infinite;
+
+          will-change: transform;
+          transform: translateZ(0);
         }
 
         .orbit.animate {
@@ -178,6 +183,9 @@ export default function SkillOrbit({
             width: 38px;
             height: 38px;
             transform: translate(-19px, -19px);
+          }
+          .orbit {
+            animation-duration: 75s;
           }
 
           .orbit.animate,

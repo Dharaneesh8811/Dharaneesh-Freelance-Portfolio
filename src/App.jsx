@@ -7,6 +7,8 @@ import Skills from './components/Skills.jsx'
 import Services from './components/Services.jsx'
 import Projects from './components/Projects.jsx'
 import WhyChooseMe from './components/WhyChooseMe.jsx'
+import MyProcess from './components/MyProcess.jsx'
+import FAQ from './components/FAQ.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
 
@@ -22,8 +24,10 @@ export default function App() {
         <About />
         <Skills />
         <Services />
+        <MyProcess />
         <Projects />
         <WhyChooseMe />
+        <FAQ />
         <Contact />
       </main>
       

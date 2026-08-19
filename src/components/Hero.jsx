@@ -112,18 +112,17 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="hero-stats"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
+            className="hero-stats"
           >
             {[
               ['1+', 'Years building UI'],
               ['6+', 'Projects shipped'],
               ['100%', 'Responsive builds'],
             ].map(([stat, label]) => (
-              <div key={label} className="hero-stat">
-
+              <div className="hero-stat" key={label}>
                 <div className="gradient-text hero-stat-value">
                   {stat}
                 </div>
@@ -131,7 +130,6 @@ export default function Hero() {
                 <div className="hero-stat-label">
                   {label}
                 </div>
-
               </div>
             ))}
           </motion.div>
@@ -208,6 +206,30 @@ export default function Hero() {
           min-height: 62vh;
         }
         .hero-visual { will-change: transform; }
+        .hero-stats {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  margin-top: 36px;
+}
+
+.hero-stat {
+  min-width: 120px;
+}
+
+.hero-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero-stat-label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 6px;
+  white-space: nowrap;
+}
 @media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -351,42 +373,28 @@ export default function Hero() {
     align-items: start;
   }
 
-  .hero-stat {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-
-    min-width: 0;
+   .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    max-width: 420px;
+    margin: 36px auto 0;
+    gap: 8px;
     text-align: center;
+  }
+
+  .hero-stat {
+    min-width: 0;
   }
 
   .hero-stat-value {
-    order: 1;
-
-    font-family: var(--font-display);
-    font-size: 1.5rem !important;
-    font-weight: 700;
-
-    line-height: 1.1;
-
-    margin-bottom: 6px;
+    font-size: 1.5rem;
   }
 
   .hero-stat-label {
-    order: 2;
-
-    display: block;
-
-    width: 100%;
-    max-width: 100px;
-
-    color: var(--text-muted);
-
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     line-height: 1.35;
-
-    text-align: center;
+    white-space: normal;
   }
 }
       `}</style>

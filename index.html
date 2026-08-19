@@ -2,50 +2,159 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Dharaneesh R-Freelance</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Viewport -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <!-- Primary SEO -->
+    <title>Dharaneesh R | Freelance React Frontend Developer</title>
+
     <meta
       name="description"
-      content="Dharaneesh R is a freelance React frontend developer and UI/UX designer building fast, responsive, and beautifully crafted web experiences for startups and businesses."
+      content="Dharaneesh R is a freelance React Frontend Developer and UI/UX Designer building fast, responsive, modern, and user-friendly websites for startups, businesses, and clients."
     />
-    <meta name="keywords" content="React developer, frontend developer, UI/UX designer, freelance web developer, responsive websites" />
+
+    <meta
+      name="keywords"
+      content="Dharaneesh R, React Developer, Frontend Developer, Freelance React Developer, UI UX Designer, Freelance Web Developer, React JS Developer, Responsive Website Developer, Bangalore React Developer"
+    />
+
     <meta name="author" content="Dharaneesh R" />
+
+    <meta name="robots" content="index, follow" />
+
     <meta name="theme-color" content="#0B1120" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Dharaneesh R-Freelance" />
-    <meta property="og:description" content="Dharaneesh R is a freelance React frontend developer and UI/UX designer building fast, responsive, and beautifully crafted web experiences for startups and businesses." />
-    <meta property="og:image" content="/og-image.png" />
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://dharaneesh-freelance.web.app/"
+    />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Dharaneesh R-Freelance" />
-    <meta name="twitter:description" content="Dharaneesh R is a freelance React frontend developer and UI/UX designer building fast, responsive, and beautifully crafted web experiences for startups and businesses." />
+    <!-- =========================
+         Open Graph / Facebook
+    ========================== -->
+
+    <meta property="og:type" content="website" />
+
+    <meta
+      property="og:title"
+      content="Dharaneesh R | Freelance React Frontend Developer"
+    />
+
+    <meta
+      property="og:description"
+      content="I design and build fast, responsive, modern React websites for startups, businesses, and freelance clients."
+    />
+
+    <meta
+      property="og:url"
+      content="https://dharaneesh-freelance.web.app/"
+    />
+
+    <meta
+      property="og:site_name"
+      content="Dharaneesh R Freelance"
+    />
+
+    <meta
+      property="og:image"
+      content="https://dharaneesh-freelance.web.app/og-image.png"
+    />
+
+    <meta
+      property="og:image:alt"
+      content="Dharaneesh R - Freelance React Frontend Developer"
+    />
+
+    <meta
+      property="og:image:width"
+      content="1200"
+    />
+
+    <meta
+      property="og:image:height"
+      content="630"
+    />
+
+    <!-- =========================
+         Twitter / X
+    ========================== -->
+
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+
+    <meta
+      name="twitter:title"
+      content="Dharaneesh R | Freelance React Frontend Developer"
+    />
+
+    <meta
+      name="twitter:description"
+      content="Freelance React Frontend Developer building responsive, modern, and user-friendly web experiences."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://dharaneesh-freelance.web.app/og-image.png"
+    />
+
+    <!-- =========================
+         Google Fonts
+    ========================== -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
+    <!-- =========================
+         Theme
+    ========================== -->
+
     <script>
       (function () {
         try {
-          var stored = localStorage.getItem('portfolio-theme');
-          var theme = stored === 'light' || stored === 'dark'
-            ? stored
-            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-          document.documentElement.setAttribute('data-theme', theme);
+          var stored = localStorage.getItem("portfolio-theme");
+
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+
+          document.documentElement.setAttribute(
+            "data-theme",
+            theme
+          );
         } catch (e) {}
       })();
     </script>
   </head>
+
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+
+    <script
+      type="module"
+      src="/src/main.jsx"
+    ></script>
   </body>
 </html>

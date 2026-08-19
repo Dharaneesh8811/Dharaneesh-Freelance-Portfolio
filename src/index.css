@@ -151,6 +151,8 @@ textarea:focus-visible {
 section {
   position: relative;
   padding: 120px 0;
+  content-visibility: auto;
+  contain-intrinsic-size: 700px;
 }
 
 @media (max-width: 768px) {

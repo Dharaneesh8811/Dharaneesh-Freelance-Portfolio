@@ -1,826 +1,605 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import emailjs from '@emailjs/browser'
-import { FiMail, FiPhone, FiLinkedin, FiGithub, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi'
-
-const contactInfo = [
-  { icon: FiMail, label: 'Email', value: 'dharaneeshr.official@gmail.com', href: 'mailto:dharaneeshr.official@gmail.com' },
-  { icon: FiPhone, label: 'Phone', value: '+91 93635 78811', href: 'tel:+91 9363578811' },
-  { icon: FiLinkedin, label: 'LinkedIn', value: 'LinkedIn', href: 'https://www.linkedin.com/in/dharaneeshr-10d11d' },
-  { icon: FiGithub, label: 'GitHub', value: 'GitHub', href: 'https://github.com/Dharaneesh8811' },
-]
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-}
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
+import { FiMail, FiMapPin, FiSend, FiCheckCircle, FiPhone, FiLinkedin } from "react-icons/fi";
+import SectionHeading from "./SectionHeading.jsx";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const form = useRef();
+  const [sending, setSending] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleChange(e) {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
-  }
+  const sendEmail = (e) => {
+    e.preventDefault();
 
-  async function handleSubmit(e) {
-  e.preventDefault();
-  setStatus('sending');
+    setSending(true);
+    setSuccess(false);
+    setError("");
 
-  try {
-    await emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      {
-        from_name: form.name,
-        from_email: form.email,
-        message: form.message,
-      },
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    );
+    emailjs
+      .sendForm(
+        "service_lf54dnw",
+        "template_cjjbhzd",
+        form.current,
+        {
+          publicKey: "deR4_ZGG94LzrG2zF",
+        }
+      )
+      .then(
+        () => {
+          setSending(false);
+          setSuccess(true);
+          form.current.reset();
 
-    setStatus('sent');
-    setForm({ name: '', email: '', message: '' });
-  } catch (error) {
-    console.error('EmailJS Error:', error);
-    setStatus('error');
-  }
-}
+          setTimeout(() => {
+            setSuccess(false);
+          }, 5000);
+        },
+        (error) => {
+          console.error("EmailJS Error:", error);
+          setSending(false);
+          setError("Something went wrong. Please try again.");
+        }
+      );
+  };
 
   return (
     <section id="contact">
       <div className="container">
-        <motion.div
-          className="section-heading"
-          style={{ maxWidth: 640, marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-        >
-          <span className="eyebrow" style={{ justifyContent: 'center' }}>
-            Contact
-          </span>
-          <h2>Let's Build Something Great Together</h2>
-          <p>Have a project in mind? Tell me a bit about it and I'll get back to you within a day.</p>
-        </motion.div>
+
+        <SectionHeading
+          eyebrow="Contact"
+          title={<>
+          Let's build <span className='gradient-text'> something together</span>
+          </>}
+          description="Have a project in mind? Tell me what you're looking to build and I'll get back to you."
+        />
 
         <div className="contact-grid">
+
+          {/* LEFT SIDE */}
           <motion.div
-  className="card contact-left-card"
-  variants={fadeUp}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.3 }}
->
-  <h3 className="contact-left-title">Reach me directly</h3>
-
-  <ul className="contact-list">
-    {contactInfo.map((item) => (
-      <li key={item.label}>
-        <a href={item.href} className="contact-info-item">
-          <span className="contact-icon">
-            <item.icon size={18} />
-          </span>
-          <div>
-            <div className="contact-label">{item.label}</div>
-            <div className="contact-value">{item.value}</div>
-          </div>
-        </a>
-      </li>
-    ))}
-  </ul>
-</motion.div>
-
-          <motion.form
-            className="card contact-form"
-            onSubmit={handleSubmit}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            className="contact-info"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-<div className="form-row">
-  <div className="field">
-    <label htmlFor="name">Name</label>
-    <input
-      id="name"
-      name="name"
-      type="text"
-      required
-      value={form.name}
-      onChange={handleChange}
-      placeholder="Your name"
-    />
-  </div>
+            <div className="contact-info-card">
 
-  <div className="field">
-    <label htmlFor="email">Email</label>
-    <input
-      id="email"
-      name="email"
-      type="email"
-      required
-      value={form.email}
-      onChange={handleChange}
-      placeholder="you@company.com"
-    />
-  </div>
-</div>
+              <div className="contact-info-item">
+                <div className="contact-icon">
+                  <FiMail size={20} />
+                </div>
 
-<div className="field">
-  <label htmlFor="message">Message</label>
-  <textarea
-    id="message"
-    name="message"
-    required
-    rows={5}
-    value={form.message}
-    onChange={handleChange}
-    placeholder="Tell me about your project"
-  />
-</div>
+                <div>
+                  <span>Email</span>
+                  <a href="mailto:dharaneeshr.official@gmail.com">
+                    dharaneeshr.official@gmail.com
+                  </a>
+                </div>
+              </div>
 
-            <button
-              type="submit"
-              className="btn btn-primary"
-              style={{ width: '100%' }}
-              disabled={status === 'sending' || status === 'sent'}
-            >
-              {status === 'sent' ? (
-                <>
-                  <FiCheck /> Message Sent
-                </>
-              ) : status === 'sending' ? (
-                'Sending…'
-              ) : (
-                <>
-                  <FiSend /> Send Message
-                </>
+              <div className="contact-info-item">
+                <div className="contact-icon">
+                  <FiPhone size={20} />
+                </div>
+
+                <div>
+                  <span>Phone</span>
+                  <a href="tel:+91 93635 78811">
+                    +91 93635 78811
+                  </a>
+                </div>
+              </div>
+
+              <div className="contact-info-item">
+                <div className="contact-icon">
+                  <FiLinkedin size={20} />
+                </div>
+
+                <div>
+                  <span>LinkedIn</span>
+                  <a href="https://linkedin.com/in/dharaneeshr-10d11d">
+                    LinkedIn Profile
+                  </a>
+                </div>
+              </div>
+
+              <div className="contact-info-item">
+                <div className="contact-icon">
+                  <FiMapPin size={20} />
+                </div>
+
+                <div>
+                  <span>Location</span>
+                  <p>Salem, Tamil Nadu</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="contact-note">
+              <span className="contact-status-dot"></span>
+              Currently available for freelance projects
+            </div>
+          </motion.div>
+
+
+          {/* FORM */}
+          <motion.div
+            className="contact-form-card"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+
+            <form ref={form} onSubmit={sendEmail}>
+
+              <div className="form-row">
+
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+
+                  <input
+                    id="name"
+                    type="text"
+                    name="from_name"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+
+                  <input
+                    id="email"
+                    type="email"
+                    name="from_email"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+
+              </div>
+
+
+              <div className="form-group">
+                <label htmlFor="project">Project type</label>
+
+                <select
+                  id="project"
+                  name="project_type"
+                  required
+                >
+                  <option value="">
+                    Select a project type
+                  </option>
+
+                  <option value="Landing Page">
+                    Landing Page
+                  </option>
+
+                  <option value="Business Website">
+                    Business Website
+                  </option>
+
+                  <option value="React Website">
+                    React Website
+                  </option>
+
+                  <option value="Website Redesign">
+                    Website Redesign
+                  </option>
+
+                  <option value="Web Application">
+                    Web Application
+                  </option>
+
+                  <option value="Bug Fixing">
+                    Bug Fixing
+                  </option>
+
+                  <option value="Other">
+                    Other
+                  </option>
+                </select>
+              </div>
+
+
+              {/* <div className="form-group">
+                <label htmlFor="budget">Budget</label>
+
+                <select
+                  id="budget"
+                  name="budget"
+                >
+                  <option value="">
+                    Select your budget
+                  </option>
+
+                  <option value="₹5,000 - ₹15,000">
+                    ₹5,000 - ₹15,000
+                  </option>
+
+                  <option value="₹15,000 - ₹30,000">
+                    ₹15,000 - ₹30,000
+                  </option>
+
+                  <option value="₹30,000 - ₹60,000">
+                    ₹30,000 - ₹60,000
+                  </option>
+
+                  <option value="₹60,000+">
+                    ₹60,000+
+                  </option>
+
+                  <option value="Not sure">
+                    I'm not sure yet
+                  </option>
+                </select>
+              </div> */}
+
+
+              <div className="form-group">
+                <label htmlFor="message">Tell me about your project</label>
+
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Tell me what you want to build..."
+                  required
+                ></textarea>
+              </div>
+
+
+              {success && (
+                <div className="form-message success">
+                  <FiCheckCircle />
+                  Thanks! Your message has been sent successfully.
+                </div>
               )}
-            </button>
-            {status === 'sent' && (
-              <p role="status" style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: 12, textAlign: 'center' }}>
-                Thanks for reaching out — I'll reply soon.
-              </p>
-            )}
-            {status === 'error' && (
-              <p role="alert" style={{ color: '#f87171', fontSize: '0.85rem', marginTop: 12, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-                <FiAlertCircle size={14} /> Something went wrong — please email me directly instead.
-              </p>
-            )}
-          </motion.form>
+
+              {error && (
+                <div className="form-message error">
+                  {error}
+                </div>
+              )}
+
+
+              <button
+                type="submit"
+                className="btn btn-primary contact-submit"
+                disabled={sending}
+              >
+                {sending ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    Send Message
+                    <FiSend />
+                  </>
+                )}
+              </button>
+
+            </form>
+
+          </motion.div>
+
         </div>
       </div>
 
+
       <style>{`
-/* =========================================================
-   CONTACT GRID
-========================================================= */
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: 0.7fr 1.15fr;
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 0.8fr 1.2fr;
+          gap: 32px;
+          align-items: start;
+          margin-top: 40px;
+        }
 
-  gap: 20px;
+        .contact-info-card,
+        .contact-form-card {
+          position: relative;
+          overflow: hidden;
+          border-radius: 24px;
 
-  margin-top: 52px;
+          background: rgba(255,255,255,0.10);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
 
-  align-items: stretch;
-}
+          border: 1px solid rgba(255,255,255,0.30);
 
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.45),
+            0 15px 40px rgba(70,60,150,0.10);
 
-/* =========================================================
-   COMMON GLASS CARD
-   Same glass material as Services / Skills / Why Choose Me
-========================================================= */
+          transition:
+            transform 0.35s ease,
+            border-color 0.35s ease,
+            box-shadow 0.35s ease;
+        }
+
+        /* WHITE FLASH */
 
-.card.contact-left-card,
-.card.contact-form {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
+        .contact-info-card::before,
+        .contact-form-card::before {
+          content: "";
+          position: absolute;
+
+          top: -20%;
+          left: -120%;
+
+          width: 45%;
+          height: 140%;
+
+          background: linear-gradient(
+            110deg,
+            transparent,
+            rgba(255,255,255,0.05),
+            rgba(255,255,255,0.55),
+            rgba(180,190,255,0.15),
+            transparent
+          );
+
+          transform: skewX(-20deg);
+
+          transition: left 0.8s ease;
+
+          pointer-events: none;
+        }
+
+        .contact-info-card:hover::before,
+        .contact-form-card:hover::before {
+          left: 150%;
+        }
+
+        .contact-info-card:hover,
+        .contact-form-card:hover {
+          transform: translateY(-5px);
+
+          border-color: rgba(255,255,255,0.55);
+
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.60),
+            0 22px 50px rgba(70,60,150,0.15);
+        }
+
+        .contact-info-card {
+          padding: 28px;
+        }
 
-  border-radius: 28px;
+        .contact-info-item {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 18px 0;
+        }
 
-  /* Transparent glass */
-  background: rgba(255, 255, 255, 0.10) !important;
+        .contact-info-item + .contact-info-item {
+          border-top: 1px solid var(--border);
+        }
 
-  /* Frosted glass */
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+        .contact-icon {
+          width: 46px;
+          height: 46px;
 
-  /* Glass border */
-  border: 1px solid rgba(255, 255, 255, 0.45);
+          flex-shrink: 0;
 
-  /* Glass depth */
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.12),
-    0 12px 35px rgba(70, 60, 150, 0.10);
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-  transition:
-    transform 0.35s ease,
-    background 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
-}
+          border-radius: 14px;
 
+          color: var(--accent);
 
-/* =========================================================
-   TOP GLASS SHINE
-========================================================= */
+          background: rgba(var(--accent-rgb),0.10);
 
-.contact-left-card::after,
-.contact-form::after {
-  content: '';
+          border: 1px solid rgba(var(--accent-rgb),0.25);
+        }
 
-  position: absolute;
+        .contact-info-item span {
+          display: block;
+          color: var(--text-muted);
+          font-size: 0.8rem;
+          margin-bottom: 4px;
+        }
 
-  top: 0;
-  left: 8%;
-  right: 8%;
+        .contact-info-item a,
+        .contact-info-item p {
+          color: var(--text);
+          font-size: 0.95rem;
+        }
 
-  height: 1px;
+        .contact-info-item a:hover {
+          color: var(--accent);
+        }
 
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.85),
-    transparent
-  );
+        .contact-note {
+          margin-top: 16px;
+          color: var(--text-muted);
+          font-size: 0.85rem;
 
-  opacity: 0.8;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
 
-  pointer-events: none;
-  z-index: 1;
-}
+        .contact-status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #34d399;
+          box-shadow: 0 0 10px rgba(52,211,153,0.6);
+        }
 
+        .contact-form-card {
+          padding: 30px;
+        }
 
-/* =========================================================
-   LIGHT SWEEP
-========================================================= */
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
 
-.contact-left-card::before,
-.contact-form::before {
-  content: '';
+        .form-group {
+          margin-bottom: 18px;
+        }
 
-  position: absolute;
+        .form-group label {
+          display: block;
+          margin-bottom: 8px;
 
-  top: -20%;
-  left: -120%;
+          font-size: 0.85rem;
+          font-weight: 600;
 
-  width: 45%;
-  height: 140%;
+          color: var(--text);
+        }
 
-  background: linear-gradient(
-    110deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0.45),
-    rgba(170, 180, 255, 0.12),
-    transparent
-  );
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
 
-  transform: skewX(-20deg);
+          width: 100%;
 
-  transition: left 0.85s ease;
+          padding: 12px 14px;
 
-  pointer-events: none;
-  z-index: 2;
-}
+          border-radius: 12px;
 
+          border: 1px solid var(--border);
 
-/* =========================================================
-   CARD HOVER
-========================================================= */
+          background: rgba(255,255,255,0.06);
 
-.contact-left-card:hover,
-.contact-form:hover {
-  transform: translateY(-6px);
+          color: var(--text);
 
-  background: rgba(255, 255, 255, 0.16) !important;
+          outline: none;
 
-  border-color: rgba(255, 255, 255, 0.65);
+          font-family: inherit;
 
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.80),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.15),
-    0 20px 45px rgba(70, 60, 150, 0.14),
-    0 0 25px rgba(130, 120, 255, 0.08);
-}
+          transition:
+            border-color 0.25s ease,
+            box-shadow 0.25s ease,
+            background 0.25s ease;
+        }
 
-.contact-left-card:hover::before,
-.contact-form:hover::before {
-  left: 150%;
-}
+        .form-group textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
 
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
 
-/* =========================================================
-   CONTENT ABOVE GLASS
-========================================================= */
+          border-color: var(--accent);
 
-.contact-left-card > *,
-.contact-form > * {
-  position: relative;
-  z-index: 3;
-}
+          background: rgba(var(--accent-rgb),0.05);
 
+          box-shadow:
+            0 0 0 3px rgba(var(--accent-rgb),0.10);
+        }
 
-/* =========================================================
-   LEFT CARD
-========================================================= */
+        .form-group select option {
+          background: var(--bg-card);
+          color: var(--text);
+        }
 
-.contact-left-card {
-  padding: 30px;
-}
+        .contact-submit {
+          width: 100%;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 4px;
+        }
 
-.contact-left-title {
-  font-size: 1.35rem;
+        .contact-submit:disabled {
+          opacity: 0.65;
+          cursor: not-allowed;
+        }
 
-  font-weight: 700;
+        .form-message {
+          display: flex;
+          align-items: center;
+          gap: 8px;
 
-  margin-bottom: 26px;
+          padding: 12px 14px;
 
-  color: var(--text);
-}
+          border-radius: 12px;
 
+          margin-bottom: 16px;
 
-/* =========================================================
-   CONTACT LIST
-========================================================= */
+          font-size: 0.85rem;
+        }
 
-.contact-list {
-  display: flex;
+        .form-message.success {
+          color: #34d399;
+          background: rgba(52,211,153,0.08);
+          border: 1px solid rgba(52,211,153,0.20);
+        }
 
-  flex-direction: column;
+        .form-message.error {
+          color: #f87171;
+          background: rgba(248,113,113,0.08);
+          border: 1px solid rgba(248,113,113,0.20);
+        }
 
-  gap: 14px;
-}
 
+        /* DARK MODE */
 
-/* =========================================================
-   CONTACT INFO ITEM — GLASS
-========================================================= */
+        [data-theme="dark"] .contact-info-card,
+        [data-theme="dark"] .contact-form-card {
 
-.contact-info-item {
-  position: relative;
+          background: rgba(20,25,45,0.20);
 
-  overflow: hidden;
+          border-color: rgba(255,255,255,0.18);
 
-  display: flex;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.16),
+            0 15px 40px rgba(0,0,0,0.20);
+        }
 
-  align-items: center;
+        [data-theme="dark"] .contact-info-card:hover,
+        [data-theme="dark"] .contact-form-card:hover {
 
-  gap: 16px;
+          background: rgba(35,40,65,0.28);
 
-  padding: 14px 16px;
+          border-color: rgba(255,255,255,0.30);
+        }
 
-  border-radius: 50px;
 
-  /*
-    Transparent mini glass
-  */
-  background: rgba(255, 255, 255, 0.07);
+        @media (max-width: 800px) {
 
-  border: 1px solid rgba(255, 255, 255, 0.22);
+          .contact-grid {
+            grid-template-columns: 1fr;
+          }
 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+          .form-row {
+            grid-template-columns: 1fr;
+          }
 
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
 
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    background 0.3s ease;
-}
+        @media (max-width: 640px) {
 
+          .contact-info-card,
+          .contact-form-card {
+            padding: 20px;
+          }
 
-/* =========================================================
-   CONTACT ITEM LIGHT SWEEP
-========================================================= */
+          .contact-info-item {
+            padding: 14px 0;
+          }
 
-.contact-info-item::before {
-  content: '';
+        }
 
-  position: absolute;
-
-  top: -20%;
-  left: -120%;
-
-  width: 45%;
-  height: 140%;
-
-  background: linear-gradient(
-    110deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0.35),
-    rgba(130, 140, 255, 0.12),
-    transparent
-  );
-
-  transform: skewX(-20deg);
-
-  transition: left 0.75s ease;
-
-  pointer-events: none;
-}
-
-.contact-info-item:hover::before {
-  left: 150%;
-}
-
-
-/* =========================================================
-   CONTACT ITEM HOVER
-========================================================= */
-
-.contact-info-item:hover {
-  transform: translateX(6px);
-
-  background: rgba(255, 255, 255, 0.13);
-
-  border-color: rgba(255, 255, 255, 0.42);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 10px 25px rgba(70, 60, 150, 0.10);
-}
-
-
-/* =========================================================
-   CONTACT ICON
-========================================================= */
-
-.contact-icon {
-  width: 42px;
-  height: 42px;
-
-  border-radius: 50px;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  background: rgba(255, 255, 255, 0.10);
-
-  color: var(--accent);
-
-  border: 1px solid rgba(255, 255, 255, 0.30);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-
-  transition:
-    transform 0.4s ease,
-    background 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-
-/* ICON HOVER */
-
-.contact-info-item:hover .contact-icon {
-  background: color-mix(
-    in srgb,
-    var(--accent) 15%,
-    rgba(255, 255, 255, 0.15)
-  );
-
-  border-color: color-mix(
-    in srgb,
-    var(--accent) 40%,
-    rgba(255, 255, 255, 0.30)
-  );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.50),
-    0 0 16px color-mix(
-      in srgb,
-      var(--accent) 15%,
-      transparent
-    );
-
-  transform: scale(1.08);
-}
-
-
-/* =========================================================
-   CONTACT TEXT
-========================================================= */
-
-.contact-label {
-  font-size: 0.8rem;
-
-  color: var(--text-muted);
-
-  margin-bottom: 4px;
-}
-
-.contact-value {
-  font-size: 0.95rem;
-
-  font-weight: 600;
-
-  color: var(--text);
-}
-
-
-/* =========================================================
-   FORM CARD
-========================================================= */
-
-.contact-form {
-  padding: 32px;
-}
-
-
-/* =========================================================
-   FORM ROW
-========================================================= */
-
-.form-row {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 16px;
-}
-
-
-/* =========================================================
-   FIELD
-========================================================= */
-
-.field {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 10px;
-
-  margin-bottom: 22px;
-}
-
-.field label {
-  font-size: 0.85rem;
-
-  font-weight: 500;
-
-  color: var(--text-muted);
-}
-
-
-/* =========================================================
-   GLASS INPUT
-========================================================= */
-
-.field input,
-.field textarea {
-  width: 100%;
-
-  /*
-    Transparent input glass
-  */
-  background: rgba(255, 255, 255, 0.07);
-
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  border-radius: 999px;
-
-  padding: 16px 18px;
-
-  color: var(--text);
-
-  font-family: inherit;
-
-  font-size: 0.96rem;
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.20);
-
-  transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
-}
-
-
-.field textarea {
-  border-radius: 20px;
-
-  min-height: 180px;
-
-  resize: vertical;
-}
-
-
-/* =========================================================
-   PLACEHOLDER
-========================================================= */
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: var(--text-muted);
-
-  opacity: 0.7;
-}
-
-
-/* =========================================================
-   INPUT FOCUS
-========================================================= */
-
-.field input:focus,
-.field textarea:focus {
-  outline: none;
-
-  background: rgba(255, 255, 255, 0.12);
-
-  border-color: color-mix(
-    in srgb,
-    var(--accent) 50%,
-    rgba(255, 255, 255, 0.30)
-  );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.30),
-    0 0 0 3px color-mix(
-      in srgb,
-      var(--accent) 12%,
-      transparent
-    ),
-    0 0 20px color-mix(
-      in srgb,
-      var(--accent) 8%,
-      transparent
-    );
-}
-
-
-/* =========================================================
-   SUBMIT BUTTON
-========================================================= */
-
-.contact-submit {
-  width: 100%;
-
-  justify-content: center;
-
-  padding: 16px 24px;
-
-  border-radius: 999px;
-
-  background: linear-gradient(
-    90deg,
-    #6366f1,
-    #4f46e5
-  );
-
-  color: #ffffff;
-
-  border: none;
-
-  font-weight: 700;
-
-  font-size: 1rem;
-
-  box-shadow:
-    0 14px 30px rgba(79, 70, 229, 0.28);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    filter 0.3s ease;
-}
-
-.contact-submit:hover {
-  transform: translateY(-2px);
-
-  filter: brightness(1.08);
-
-  box-shadow:
-    0 18px 36px rgba(79, 70, 229, 0.36);
-}
-
-
-/* =========================================================
-   DARK MODE
-========================================================= */
-
-.dark .card.contact-left-card,
-.dark .card.contact-form,
-[data-theme='dark'] .card.contact-left-card,
-[data-theme='dark'] .card.contact-form {
-  background: rgba(20, 25, 45, 0.16) !important;
-
-  backdrop-filter: blur(14px) saturate(130%);
-  -webkit-backdrop-filter: blur(14px) saturate(130%);
-
-  border-color: rgba(255, 255, 255, 0.18);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.10),
-    0 15px 40px rgba(0, 0, 0, 0.20);
-}
-
-.dark .card.contact-left-card:hover,
-.dark .card.contact-form:hover,
-[data-theme='dark'] .card.contact-left-card:hover,
-[data-theme='dark'] .card.contact-form:hover {
-  background: rgba(35, 40, 65, 0.22) !important;
-
-  border-color: rgba(255, 255, 255, 0.30);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.24),
-    0 22px 50px rgba(0, 0, 0, 0.28);
-}
-
-
-/* =========================================================
-   DARK MODE — CONTACT ITEMS
-========================================================= */
-
-.dark .contact-info-item,
-[data-theme='dark'] .contact-info-item {
-  background: rgba(255, 255, 255, 0.05);
-
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.dark .contact-info-item:hover,
-[data-theme='dark'] .contact-info-item:hover {
-  background: rgba(255, 255, 255, 0.09);
-
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-
-/* =========================================================
-   DARK MODE — INPUTS
-========================================================= */
-
-.dark .field input,
-.dark .field textarea,
-[data-theme='dark'] .field input,
-[data-theme='dark'] .field textarea {
-  background: rgba(255, 255, 255, 0.05);
-
-  border-color: rgba(255, 255, 255, 0.16);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.10);
-}
-
-.dark .field input:focus,
-.dark .field textarea:focus,
-[data-theme='dark'] .field input:focus,
-[data-theme='dark'] .field textarea:focus {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 900px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-
-    gap: 20px;
-  }
-
-  .contact-left-card,
-  .contact-form {
-    padding: 24px;
-  }
-}
-
-@media (max-width: 640px) {
-  .form-row {
-    grid-template-columns: 1fr;
-
-    gap: 0;
-  }
-}      
       `}</style>
     </section>
-  )
+  );
 }
